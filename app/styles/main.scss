@@ -1,0 +1,42 @@
+@import "compass_twitter_bootstrap";
+
+path.data-path:hover {
+    opacity: 0.2;
+}
+.legend li {
+    list-style: none;
+}
+.legend div.item-container {
+    cursor: pointer;
+}
+
+.legend div.item-container.hidden {
+    opacity: 0.4;
+}
+
+.legend .palette {
+    display: block;
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.legend .label {
+    clear: both;
+}
+
+.state {
+    fill:#d3d3d3;
+    stroke:#fff;
+    stroke-width:0.75;
+    stroke-opacity:1;
+}
+
+iframe {
+    border: none;
+}
+
+.state-name {
+
+    position: static;
+}
