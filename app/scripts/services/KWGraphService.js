@@ -110,9 +110,10 @@ angular.module('a2App')
         if (data)
           x_label = data[0].slice(1,data[0].length);
         return {
-            paths:pathData,
-            x_label:x_label,
-            y_label:y_label,
+            paths: pathData,
+            renderData: renderData,
+            x_label: x_label,
+            y_label: y_label,
             label_x_coord: label_x_coord,
             label_y_coord: label_y_coord
         };

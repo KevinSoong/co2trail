@@ -7,6 +7,8 @@ angular.module('a2App')
     $scope.width = 500;
     $scope.height = 500;
     $scope.color = ['#3d3', '#33d','#a66','#6a6', '#66a','#2d2', '#23d','#a56','#5a6', '#56a'];
+    $scope.showGuide = true;
+    $scope.pathValues = [];
     $scope.pathDisplayState = [];
     // $scope.initialized = false;
     $scope.init = function(options) {
@@ -67,6 +69,7 @@ angular.module('a2App')
         CsvReaderService.read(
             url,
             function(d) {
+                $scope.rawData = d;
                 $scope.data = KWGraphService.generateLineGraph(d, {width:$scope.width, height:$scope.height, accumulate:true});//getRenderData(d, $scope.width, $scope.height);
                 $scope.x_label = d[0];
                 if ($scope.data)
@@ -82,6 +85,47 @@ angular.module('a2App')
             return $scope.pathDisplayState[scope.path.label];
         else
             return 1;
+    }
+    $scope.mousemove = function(event) {
+        var i;
+        var closet_column_index = -1;
+        var x_distance = 999999;
+        var x_columns = $scope.data.label_x_coord;
+        for (i=0; i<x_columns.length; i++) {
+            var d = Math.abs((event.offsetX-30) - x_columns[i]);
+            if (d < x_distance) {
+                x_distance =  d;
+                closet_column_index =  i;
+            }
+        }
+
+        // var guide = angular.element('#hover-guide');
+        // guide.attr('x1', x_columns[closet_column_index]-25);
+        // guide.attr('x2', x_columns[closet_column_index]-25);
+
+        var data = $scope.data.renderData;
+        // console.log(data);
+        
+        var tooltip = angular.element('.tooltip');
+        tooltip.css('top',event.screenY-80);
+        tooltip.css('left',x_columns[closet_column_index]+140);
+        tooltip.html($scope.data.x_label[closet_column_index]);
+        for (i=0;i<data.length; i++) {
+            var dot = angular.element('#hover-dot-'+i);
+            dot.attr('cx',data[i][closet_column_index][0]+30);
+            dot.attr('cy',data[i][closet_column_index][1]);
+        }
+        $scope.pathValues.length = 0;
+        for (i=1; i<$scope.rawData.length; i++)
+            $scope.pathValues.push($scope.rawData[i][closet_column_index+1]);
+    }
+    $scope.mouseenter = function(event) {
+        $scope.showGuide = true;
+        console.log('enter');
+    }
+    $scope.mouseleave = function(event) {
+        $scope.showGuide = false;
+        console.log('leave');
     }
     // function getRenderData(data, width, height) {
     //     var i, j;

@@ -1,5 +1,9 @@
-<div ng-init="init({})">
+<div class="graph" ng-init="init({})">
+<div class="tooltip" ng-show="showGuide">YEAR</div>
 <svg height="{{height+30}}" width="{{width+30}}">
+  <rect x="30" y="0" width="{{width}}" height="{{height}}" fill="white" ng-mousemove="mousemove($event)"/>
+  <!-- hover guide -->
+  <!-- <line id="hover-guide" x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)" style="stroke:rgb(0,255,0);stroke-width:1" /> -->
     <!-- y-axis -->
   <line x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)" style="stroke:rgb(255,0,0);stroke-width:1" />
   <!-- x-axis -->
@@ -7,16 +11,20 @@
 
   <path ng-repeat="path in data.paths" d="{{path.d}}" class="data-path {{path.label}}"
         fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"/>
+  <!-- hover dots -->
+  <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="showGuide"/>
   <text ng-repeat="label in data.x_label" x="{{data.label_x_coord[$index]}}" y="{{height+20}}" fill="red" style="font-size:10px;" transform="translate(30)" ng-show="$index % 5 == 0">{{label}}</text>
 
   <text ng-repeat="label in data.y_label" x="0" y="{{data.label_y_coord[$index]}}" fill="red" style="font-size:10px;" transform="">{{label}}</text>
 </svg>
+
 <div class="legend">
     <ul>
         <li ng-repeat="path in data.paths" class="container-fluid">
             <div id="path-legend-{{path.label}}" ng-click="togglePath($index)" class="item-container" ng-class="{hidden:!pathDisplayState[$index]}">
             <div class="palette col-md-4" style="background-color: {{color[$index]}};"></div>
             <p class="label col-md-4">{{path.label}}</p>
+            <p class="label col-md-4">{{pathValues[$index]}}</p>
             </div>
         </li>
     </ul>

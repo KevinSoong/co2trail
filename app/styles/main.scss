@@ -40,3 +40,9 @@ iframe {
 
     position: static;
 }
+
+.graph .tooltip {
+    position: absolute;
+    opacity: 1;
+    background-color: rgba(240,240,240,0.5);
+}
