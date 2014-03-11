@@ -39,7 +39,6 @@ angular.module('a2App')
         var text_element = jQuery($scope.svg).children(text_selector);
         text_element.attr('visibility', 'visible');
         var box = state.getBoundingClientRect();
-
         text_element.attr('x', box.left+box.width);
         text_element.attr('y', box.top+box.height/2);
         text_element.html(state.id);
@@ -53,7 +52,8 @@ angular.module('a2App')
 
     $scope.renderMap = function() {
         jQuery($scope.svg).children('.state').each(function(){
-            var value = 245-parseInt($scope.renderData[this.id]);
+            console.log(parseInt($scope.renderData[this.id]));
+            var value = 240-(parseInt($scope.renderData[this.id]*240/300));
             jQuery(this).attr('fill', 'rgb('+value+','+value+','+value+')');
             jQuery(this).attr('stroke', 'white');
             jQuery(this).css('z-index', '100');

@@ -6,10 +6,11 @@ angular.module('a2App')
   .controller('GraphCtrl', function ($scope, CsvReaderService, KWGraphService, KWCarbonTrailService) {
     $scope.width = 500;
     $scope.height = 500;
-    $scope.color = ['#3d3', '#33d','#a66','#6a6', '#66a','#2d2', '#23d','#a56','#5a6', '#56a'];
+    $scope.color = ['#13F6FF','#3d3', '#33d','#a66','#6a6', '#66a','#2d2', '#23d','#a56','#5a6', '#56a'];
     $scope.showGuide = true;
     $scope.pathValues = [];
     $scope.pathDisplayState = [];
+    $scope.service = KWCarbonTrailService;
     // $scope.initialized = false;
     $scope.init = function(options) {
         // if ($scope.initialized)
@@ -110,10 +111,12 @@ angular.module('a2App')
         tooltip.css('top',event.screenY-80);
         tooltip.css('left',x_columns[closet_column_index]+140);
         tooltip.html($scope.data.x_label[closet_column_index]);
+        tooltip.css('visibility', 'visible');
         for (i=0;i<data.length; i++) {
             var dot = angular.element('#hover-dot-'+i);
             dot.attr('cx',data[i][closet_column_index][0]+30);
             dot.attr('cy',data[i][closet_column_index][1]);
+            dot.css('visibility', 'visible');
         }
         $scope.pathValues.length = 0;
         for (i=1; i<$scope.rawData.length; i++)

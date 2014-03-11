@@ -1,8 +1,8 @@
 @import "compass_twitter_bootstrap";
 
-path.data-path:hover {
-    opacity: 0.2;
-}
+// path.data-path:hover {
+//     opacity: 0.2;
+// }
 .legend li {
     list-style: none;
 }
@@ -23,6 +23,7 @@ path.data-path:hover {
 
 .legend .label {
     clear: both;
+    background-color: transparent;
 }
 
 .state {
@@ -41,8 +42,112 @@ iframe {
     position: static;
 }
 
-.graph .tooltip {
-    position: absolute;
-    opacity: 1;
-    background-color: rgba(240,240,240,0.5);
+.graph {
+
+    .tooltip {
+        position: absolute;
+        opacity: 1;
+        background-color: rgba(20,20,20,0.4);
+        padding:4px;
+        line-height: 1;
+    }
+    line {
+        stroke: white;
+        stroke-width: 1;
+    }
+    text {
+        fill: white;
+    }
+}
+
+.mainview {
+    padding: 80px 0px;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 80px 30px;
+    background-color: #424242;
+    height: 720px;
+    .info
+    {
+        padding: 0px 10px 30px 10px;
+        margin-bottom:30px;
+        // border: solid 1px white;
+    }
+    .greeting {
+        position: absolute;
+        background-color: #424242;
+        height: 600px;
+        width: 230px;
+    }
+}
+// .navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus
+.navbar {
+    width: 100%;
+    .nav li>a {
+        // height: 40px;
+        padding-top: 17px;
+        padding-bottom: 19px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    p {
+        padding: 17px 20px 0px;
+        float: left;
+    }
+    // margin-bottom:30px;
+    .navbar-inner {
+        width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        img {
+        width: 36px;
+        margin: 0px 20px;
+        }
+    }
+    .brand {
+        font-weight: 400;
+    }
+}
+
+.container {
+    width: 1200px;
+}
+
+body {
+    background-color: #333;
+    color: #b7b7b7;
+}
+
+h3 {
+    color: #dadada;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+.jslider div span{
+    font-size: 13px;
+}
+.jslider .jslider-value {
+    color: #333;
+    background: rgba(20,20,20,0.4);
+}
+.jslider-label span{
+    color: #fff;
+}
+.year-control {
+    font-size: 18px;
+    .year-label {
+        padding-left:20px;
+        h4 {
+            padding-bottom: 10px;
+        }
+    }
+    .map-scale {
+        padding-top: 30px;
+        width: 100%;
+    }
 }
