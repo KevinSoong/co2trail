@@ -58,6 +58,10 @@ iframe {
     text {
         fill: white;
     }
+
+    .graph-container {
+        float: left;
+    }
 }
 
 .mainview {
@@ -121,6 +125,7 @@ body {
 }
 
 h3 {
+    font-weight: 500;
     color: #dadada;
 }
 
@@ -151,3 +156,27 @@ h4 {
         width: 100%;
     }
 }
+
+.takeaction-button {
+    cursor: pointer;
+}
+
+.modal {
+    background-color: #333;
+    .modal-header {
+        border-bottom: 1px solid #424242;
+    }
+    .modal-body {
+        width: 480px;
+    }
+    .modal-footer {
+        border-top: none;//1px solid #666;
+        background-color: #424242;
+        box-shadow:none;
+    }
+    button a, button a:hover {
+        color: white;
+    }
+
+}
+

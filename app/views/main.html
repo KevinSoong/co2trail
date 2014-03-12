@@ -4,7 +4,70 @@
     <p>CO2 Emission of Transportation in US states (1995-2010)</p>
     <ul class="nav pull-right">
       <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">How can I help?</a></li>
+      <li ng-controller="TakeActionCtrl">
+            <!-- <div> -->
+              <script type="text/ng-template" id="take-action.html">
+                  <div class="modal-header">
+                      <h3>We can change this</h3>
+                  </div>
+                  <div class="modal-body container">
+
+                      <div class="graph" ng-controller="GraphCtrl" ng-init="init({width:150, height:150})" style="width: 480px;
+margin: 30px 70px;">
+
+<div class="graph-container" style="float:left;">
+<div class="tooltip" ng-show="showGuide">YEAR</div>
+<svg height="{{height+30}}" width="{{width+30}}">
+  <rect x="30" y="0" width="{{width}}" height="{{height}}" fill="#333" ng-mousemove="mousemove($event)"/>
+  <!-- hover guide -->
+  <!-- <line id="hover-guide" x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)" style="stroke:rgb(0,255,0);stroke-width:1" /> -->
+    <!-- y-axis -->
+  <line x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)"/>
+  <!-- x-axis -->
+  <line x1="2" y1="{{height-1}}" x2="{{width}}" y2="{{height-1}}" transform="translate(30)"/>
+
+  <path ng-repeat="path in data.paths" d="{{path.d}}" class="data-path {{path.label}}"
+        fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"/>
+  <!-- hover dots -->
+  <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="pathDisplayState[$index]"/>
+  <text ng-repeat="label in data.x_label" x="{{data.label_x_coord[$index]}}" y="{{height+20}}" fill="red" style="font-size:10px;" transform="translate(30)" ng-show="$index % 5 == 0">{{label}}</text>
+
+  <text ng-repeat="label in data.y_label" x="0" y="{{data.label_y_coord[$index]}}" fill="red" style="font-size:10px;" transform="">{{label}}</text>
+</svg>
+</div>
+<div class="legend" style="float:left;">
+    <ul>
+        <li ng-repeat="path in data.paths" class="container-fluid">
+            <div id="path-legend-{{path.label}}" ng-click="togglePath($index)" class="item-container" ng-class="{hidden:!pathDisplayState[$index]}">
+            <div class="palette col-md-4" style="background-color: {{color[$index]}};"></div>
+            <p class="label col-md-4">{{path.label}}</p>
+            <p class="label col-md-4" ng-show="pathDisplayState[$index]">{{pathValues[$index]}}</p>
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+<p style="clear:both;">Cars and Trucks are massive source of CO2 emission in transportation. You can help by:</p>
+                  <ul>
+                    <li>Reducing the frequency of driving</li>
+                    <li>Choose a more energy-efficient car</li>
+                    <li>Use bike/public transportation for commuting</li>
+                  </ul>
+                  <h4>Visit EPA for <a class="" href="http://www.epa.gov/climatechange/wycd/road.html" target="_blank">more tips</a></h4>
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn btn-warning" ><a href="http://www.epa.gov/climatechange/wycd/road.html" target="_blank">Visit EPA</a></button>
+                      <button class="btn btn-primary" ng-click="ok()">Got it!</button>
+                  </div>
+              </script>
+<!-- <button class="btn btn-warning" ng-click="cancel()">Cancel</button> -->
+              <!-- <button class="btn btn-default" ng-click="open()">Open me!</button> -->
+              <a class="takeaction-button" ng-click="open()">How can I help?</a>
+              <!-- <div ng-show="selected">Selection from a modal: {{ selected }}</div> -->
+            <!-- </div> -->
+
+        
+      </li>
     </ul>
   </div>
 </div>
@@ -12,7 +75,7 @@
 <div class="main-view container">
     <div class="row-fluid">
       <div class="sidebar span3">
-            
+
             <div class="graph" ng-controller="GraphCtrl" ng-init="init({type:'service', name:'sidePanelLineData', width:200, height:200, viewport_y_max:250, viewport_y_scale:50})">
               <div class="greeting" ng-show="service.sidePanelLineData.length===0">
               <h3>CO2Trail</h3>

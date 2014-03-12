@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('a2App', ['ngRoute', 'ngSlider'])
+angular.module('a2App', ['ngRoute', 'ngSlider', 'ui.bootstrap'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

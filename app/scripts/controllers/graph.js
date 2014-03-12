@@ -27,7 +27,7 @@ angular.module('a2App')
                 console.log('now service');
                 console.log(service[options.name]);
                 $scope.rawData = service[options.name];
-                $scope.data = KWGraphService.generateLineGraph($scope.rawData, {width:$scope.width, height:$scope.height, accumulate:true});
+                $scope.data = KWGraphService.generateLineGraph($scope.rawData, {width:$scope.width, height:$scope.height, accumulate:false});
                 service.registerObserverCallback(options.name, function() {
                     console.log('refresh');
                     
@@ -36,7 +36,7 @@ angular.module('a2App')
                         {
                             width: $scope.width,
                             height: $scope.height,
-                            accumulate: true,
+                            accumulate:false,
                             viewport_y_max: options.viewport_y_max,
                             viewport_y_scale: options.viewport_y_scale
                         }
@@ -71,7 +71,7 @@ angular.module('a2App')
             url,
             function(d) {
                 $scope.rawData = d;
-                $scope.data = KWGraphService.generateLineGraph(d, {width:$scope.width, height:$scope.height, accumulate:true});//getRenderData(d, $scope.width, $scope.height);
+                $scope.data = KWGraphService.generateLineGraph(d, {width:$scope.width, height:$scope.height, accumulate:false});//getRenderData(d, $scope.width, $scope.height);
                 $scope.x_label = d[0];
                 if ($scope.data)
                     showAllLines();
