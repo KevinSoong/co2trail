@@ -8,5 +8,5 @@ angular.module('a2App')
           var d = CSVToArray(result.data);
           callback(d);
         });
-    }
+    };
   });

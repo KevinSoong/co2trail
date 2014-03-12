@@ -1,5 +1,5 @@
 'use strict';
-var i, j;
+
 angular.module('a2App')
   .controller('MapCtrl', function ($scope, CsvReaderService, KWCarbonTrailService) {
     var service = KWCarbonTrailService;
@@ -82,7 +82,8 @@ angular.module('a2App')
                     var text_element = jQuery($scope.svg).children('#state-name');
                     text_element.bind('hover', this);
                     $scope.svg.appendChild(event.currentTarget);
-                    $scope.svg.appendChild($scope.highlightedState);
+                    if ($scope.highlightedState)
+                        $scope.svg.appendChild($scope.highlightedState);
                     
                     $scope.svg.appendChild(text_element[0]);
                     $scope.svg.appendChild(jQuery($scope.svg).children('#highlighted-state-name')[0]);
@@ -92,23 +93,24 @@ angular.module('a2App')
                     var obj = jQuery(event.currentTarget);
                     
                     applyCssToState(obj, 'stroke-width', '4');
-                    if (!(event.currentTarget.id === $scope.highlightedState.id)) {
-                        applyCssToState(obj, 'stroke', 'white');
-                    }
+                    if ($scope.highlightedState)
+                        if (!(event.currentTarget.id === $scope.highlightedState.id)) {
+                            applyCssToState(obj, 'stroke', 'white');
+                        }
                     assignTextToState('#state-name', event.currentTarget);
 
                     $scope.hoverUsState = true;
                 },
                 function(event) {
                     var obj = jQuery(event.currentTarget);
-                    if (!(event.currentTarget.id === $scope.highlightedState.id)) {
-                        applyCssToState(obj, 'stroke-width', '1');
-                        applyCssToState(obj, 'stroke', 'white');
-                    }
-                    else {
-                        applyCssToState(obj, 'stroke-width', '3');
-                        applyCssToState(obj, 'stroke', '#07EFC3');
-                    }
+                    applyCssToState(obj, 'stroke-width', '1');
+                    applyCssToState(obj, 'stroke', 'white');
+
+                    if ($scope.highlightedState)
+                        if (event.currentTarget.id === $scope.highlightedState.id) {
+                            applyCssToState(obj, 'stroke-width', '3');
+                            applyCssToState(obj, 'stroke', '#07EFC3');
+                        }
 
                     var text_element = jQuery($scope.svg).children('#state-name');
                     text_element.attr('visibility', 'hidden');
@@ -118,14 +120,13 @@ angular.module('a2App')
             );
         });
     }
-    
-    
-  });
+});
+
 function onMapLoaded() {
     var svg = document.getElementById("map").contentWindow.document.getElementById("svg");
     // Storing svg elements back to scope.
     var scope = angular.element($("#map-container")).scope();
     scope.$apply(function(){
         scope.svg = svg;
-    })
-}
+    });
+};

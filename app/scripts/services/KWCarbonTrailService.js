@@ -62,6 +62,7 @@ angular.module('a2App')
     this.sidePanelLineData = [];
     this.sidePanelShadowData = [];
     this.filterDataByYear = function(data, year) {
+        var i;
         var renderData = {};
         for (i=1; i<data.length; i++) {
             if (data[i][1] == year) {
@@ -71,6 +72,7 @@ angular.module('a2App')
         return renderData;
     };
     this.filterDataByState = function(data, state) {
+        var i;
         var renderData = {};
         for (i=1; i<data.length; i++) {
             if (data[i][0] == state) {
@@ -113,7 +115,6 @@ angular.module('a2App')
     this.onStateChanged = function(data, state) {
         var obj = this.filterDataByState(data, state);
         this.stateID = state;
-        //
         this.sidePanelLineData.length = 0;
         var i;
         var headerRow = [];
@@ -130,7 +131,6 @@ angular.module('a2App')
         this.sidePanelLineData.push(contentRow);
         
         notifyObservers('sidePanelLineData');
-        console.log(state);
     }
 
     var ObserverCallbacks = {};

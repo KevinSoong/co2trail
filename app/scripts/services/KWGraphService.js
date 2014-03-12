@@ -119,4 +119,5 @@ angular.module('a2App')
             label_y_coord: label_y_coord
         };
     }
-  });
+});
+
