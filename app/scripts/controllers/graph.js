@@ -24,10 +24,26 @@ angular.module('a2App')
                 options.type = undefined;
             else {
                 var service = KWCarbonTrailService;
-                console.log('now service');
                 console.log(service[options.name]);
                 $scope.rawData = service[options.name];
                 $scope.data = KWGraphService.generateLineGraph($scope.rawData, {width:$scope.width, height:$scope.height, accumulate:false});
+                if (options.shadow_name) {
+                    service.registerObserverCallback(options.shadow_name, function() {
+                        $scope.shadowRawData = service[options.shadow_name];
+                        $scope.shadowData = KWGraphService.generateLineGraph(
+                            $scope.shadowRawData,
+                            {
+                                width: $scope.width,
+                                height: $scope.height,
+                                accumulate:false,
+                                viewport_y_max: options.viewport_y_max,
+                                viewport_y_scale: options.viewport_y_scale
+                            }
+                        );
+                        console.log($scope.shadowData);
+                    });
+
+                }
                 service.registerObserverCallback(options.name, function() {
                     console.log('refresh');
                     
@@ -99,7 +115,7 @@ angular.module('a2App')
                 closet_column_index =  i;
             }
         }
-
+        var graphID = jQuery(event.currentTarget).parents('.graph')[0].id;
         // var guide = angular.element('#hover-guide');
         // guide.attr('x1', x_columns[closet_column_index]-25);
         // guide.attr('x2', x_columns[closet_column_index]-25);
@@ -107,14 +123,17 @@ angular.module('a2App')
         var data = $scope.data.renderData;
         // console.log(data);
         
-        var tooltip = angular.element('.tooltip');
+        var tooltip = angular.element('#'+graphID+' .tooltip');
         tooltip.css('top',event.screenY-80);
         tooltip.css('left',x_columns[closet_column_index]+140);
         tooltip.html($scope.data.x_label[closet_column_index]);
         tooltip.css('visibility', 'visible');
         for (i=0;i<data.length; i++) {
-            var dot = angular.element('#hover-dot-'+i);
-            dot.attr('cx',data[i][closet_column_index][0]+30);
+            var dot = angular.element('#'+graphID+' #hover-dot-'+i);
+            var x = data[i][closet_column_index][0]+30;
+            if (closet_column_index === data[i].length - 1)
+                x-=4;
+            dot.attr('cx',x);
             dot.attr('cy',data[i][closet_column_index][1]);
             dot.css('visibility', 'visible');
         }

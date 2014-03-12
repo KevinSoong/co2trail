@@ -60,6 +60,7 @@ angular.module('a2App')
     this.highlightedState = null;
     this.stateID = null;
     this.sidePanelLineData = [];
+    this.sidePanelShadowData = [];
     this.filterDataByYear = function(data, year) {
         var renderData = {};
         for (i=1; i<data.length; i++) {
@@ -78,6 +79,37 @@ angular.module('a2App')
         }
         return renderData;
     };
+    this.onMapDataLoaded = function(data) {
+        // get header
+        var headerRow = ['year'];
+        var firstState = data[1][0];
+        var i;
+        for (i=1; i<data.length; i++) {
+          if (data[i][0] !== firstState)
+            break;
+          headerRow.push(data[i][1]);
+        };
+
+        var prevRowState = "";
+        var contentRow = null;
+        var output = [headerRow];
+        for (i=1; i<data.length; i++) {
+          if (prevRowState !== data[i][0]) {
+            if (contentRow)
+              output.push(contentRow);
+            contentRow = new Array(0);
+            contentRow.push(data[i][0]);
+          }
+          contentRow.push(data[i][2]);
+          prevRowState = data[i][0];
+        }
+        var self = this;
+        self.sidePanelShadowData.length = 0;
+        angular.forEach(output, function(val){
+          self.sidePanelShadowData.push(val);
+        });
+        notifyObservers('sidePanelShadowData');
+    }
     this.onStateChanged = function(data, state) {
         var obj = this.filterDataByState(data, state);
         this.stateID = state;

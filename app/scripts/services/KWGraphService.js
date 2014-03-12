@@ -57,16 +57,18 @@ angular.module('a2App')
             {
                 accumulated_prev_y[j] = 0;
                 var item_no = j - 1;
-                var item_x = item_no * width/(data[0].length - 1);
+                var item_x = item_no * (width)/(data[0].length - 2);
                 label_x_coord.push(item_x);
             }
+        //push forward for the last label
+        // label_x_coord[data[0].length-2] -= 20;
         for (i=1; i<data.length; i++)
         {
             var row = [];
             for (j=1; j<data[i].length; j++)
             {
                 var item_no = j - 1;
-                var item_x = item_no * width/(data[i].length - 1);
+                var item_x = item_no * (width)/(data[i].length - 2);
                 var scaled_y_height = data[i][j]/ratio.y;
                 var scaled_y = height - (scaled_y_height - viewport_y_min/ratio.y);
                 var accumulated_y = height - ((accumulated_prev_y[j] + scaled_y_height) - viewport_y_min/ratio.y);

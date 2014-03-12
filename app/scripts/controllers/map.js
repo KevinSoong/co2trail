@@ -19,9 +19,12 @@ angular.module('a2App')
         'http://localhost:9000/images/map_src.csv',
         function(d) {
             $scope.data = d;
+            service.onMapDataLoaded(d);
             $scope.updateMapByYear();
         }
     );
+
+
 
     $scope.highlightedState = null;
     function applyCssToState(obj, property, value) {
@@ -52,7 +55,6 @@ angular.module('a2App')
 
     $scope.renderMap = function() {
         jQuery($scope.svg).children('.state').each(function(){
-            console.log(parseInt($scope.renderData[this.id]));
             var value = 240-(parseInt($scope.renderData[this.id]*240/300));
             jQuery(this).attr('fill', 'rgb('+value+','+value+','+value+')');
             jQuery(this).attr('stroke', 'white');
