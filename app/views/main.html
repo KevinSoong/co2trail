@@ -1,9 +1,9 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <a class="brand" href="#"><img src="images/logo.png"></img>CO2Trail</a>
-    <p>CO2 Emission of Transportation in US states (1995-2010)</p>
+    <p>CO2 Emission of Transportation in the US (1995-2010)</p>
     <ul class="nav pull-right">
-      <li class="active"><a href="#">Home</a></li>
+      <!-- <li class="active"><a href="#">Home</a></li> -->
       <li ng-controller="TakeActionCtrl">
             <!-- <div> -->
               <script type="text/ng-template" id="take-action.html">
@@ -47,22 +47,22 @@ margin: 30px 70px;">
     </ul>
 </div>
 </div>
-<p style="clear:both;">Cars and Trucks are massive source of CO2 emission in transportation. You can help by:</p>
+<p style="clear:both;">Cars and Trucks are massive sources of CO2 emission. You can help by:</p>
                   <ul>
-                    <li>Reducing the frequency of driving</li>
-                    <li>Choose a more energy-efficient car</li>
-                    <li>Use bike/public transportation for commuting</li>
+                    <li>Drive efficiently</li>
+                    <li>Choose an energy-efficient vehicle</li>
+                    <li>Commute with bike/public transportation</li>
                   </ul>
                   <h4>Visit EPA for <a class="" href="http://www.epa.gov/climatechange/wycd/road.html" target="_blank">more tips</a></h4>
                   </div>
                   <div class="modal-footer">
-                      <button class="btn btn-warning" ><a href="http://www.epa.gov/climatechange/wycd/road.html" target="_blank">Visit EPA</a></button>
-                      <button class="btn btn-primary" ng-click="ok()">Got it!</button>
+                      <button class="btn btn-default" ><a href="http://www.epa.gov/climatechange/wycd/road.html" target="_blank">Visit EPA</a></button>
+                      <button class="btn btn-success" ng-click="ok()">Got it!</button>
                   </div>
               </script>
 <!-- <button class="btn btn-warning" ng-click="cancel()">Cancel</button> -->
               <!-- <button class="btn btn-default" ng-click="open()">Open me!</button> -->
-              <a class="takeaction-button" ng-click="open()">How can I help?</a>
+              <a class="takeaction-button btn btn-success" ng-click="open()">How can I help?</a>
               <!-- <div ng-show="selected">Selection from a modal: {{ selected }}</div> -->
             <!-- </div> -->
 
@@ -78,17 +78,18 @@ margin: 30px 70px;">
 
             <div class="graph" id="map-detail" ng-controller="GraphCtrl" ng-init="init({type:'service', name:'sidePanelLineData', width:200, height:200, viewport_y_max:250, viewport_y_scale:50, shadow_name:'sidePanelShadowData'})">
               <div class="greeting" ng-show="service.sidePanelLineData.length===0">
-              <h3>CO2Trail</h3>
-              <p>Transportation industry is a major factor in economic development. However the it also play an big role in carbon dioxide emission.</p>
+              <h3 class="side-title">CO2Trail</h3>
+              <p>Transportation plays an big role in carbon dioxide emission. This visualization helps you understand the how the CO2 emission of transportation varies from place to place in the past 15 years.</p>
               <br/>
-              <p style="font-weight:500;">Check out the emission distribution in the country >></p>
+              <p class="guide-text">Click on the map to see more details>></p>
             </div>
                 <div class="info">
-                    <h3>{{service.state_data[service.stateID].name}}</h3>
-                    <h4>CO2 Emission ranking: {{service.state_data[service.stateID].ranking}}</h4>
+                    <h3 class="side-title">{{service.state_data[service.stateID].name}}</h3>
                     <p>
-                        Avg. Emission: {{service.state_data[service.stateID].average}} (MtCO2e)
+                        Avg: {{service.state_data[service.stateID].average| number:2}} (MtCO2e)
                     </p>
+                    <h4>CO2 Emission ranking: {{service.state_data[service.stateID].ranking}}</h4>
+                    
                 </div>
                 <div class="tooltip" ng-show="showGuide" style="visibility:hidden">YEAR</div>
                 <svg height="{{height+30}}" width="{{width+30}}">
@@ -122,7 +123,7 @@ margin: 30px 70px;">
                             <div id="path-legend-{{path.label}}" ng-click="togglePath($index)" class="item-container" ng-class="{hidden:!pathDisplayState[$index]}">
                             <div class="palette col-md-4" style="background-color: {{color[$index]}};"></div>
                             <!-- <p class="label col-md-4">{{path.label}}</p> -->
-                            <p class="label col-md-4">{{pathValues[$index]}} MtCO2e</p>
+                            <p class="label col-md-4">{{pathValues[$index]| number:2}} MtCO2e</p>
                             </div>
                         </li>
                     </ul>

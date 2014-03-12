@@ -65,10 +65,12 @@ angular.module('a2App')
                     if (prev_state.length > 0) {
                         prev_state.attr('filter', '');
                         applyCssToState(prev_state, 'stroke-width', '0.75');
+                        applyCssToState(prev_state, 'stroke', 'white');
                     }
                     var obj = jQuery(event.currentTarget);
                     obj.attr('filter', 'url(#drop-shadow)');
-                    applyCssToState(obj, 'stroke-width', '3');
+                    applyCssToState(obj, 'stroke', '#07EFC3');
+                    applyCssToState(obj, 'stroke-width', '4');
 
                     assignTextToState('#highlighted-state-name', event.currentTarget);
                     $scope.highlightedState = event.currentTarget;
@@ -82,22 +84,31 @@ angular.module('a2App')
                     $scope.svg.appendChild(event.currentTarget);
                     $scope.svg.appendChild($scope.highlightedState);
                     
-                    $scope.svg.appendChild(jQuery($scope.svg).children('#highlighted-state-name')[0]);
                     $scope.svg.appendChild(text_element[0]);
+                    $scope.svg.appendChild(jQuery($scope.svg).children('#highlighted-state-name')[0]);
+                    
                     
                     // #2FBCFF #4287D1 22DCFF 38CFFF
                     var obj = jQuery(event.currentTarget);
-                    applyCssToState(obj, 'stroke', '#13F6FF');
-                    applyCssToState(obj, 'stroke-width', '2');
-
+                    
+                    applyCssToState(obj, 'stroke-width', '4');
+                    if (!(event.currentTarget.id === $scope.highlightedState.id)) {
+                        applyCssToState(obj, 'stroke', 'white');
+                    }
                     assignTextToState('#state-name', event.currentTarget);
 
                     $scope.hoverUsState = true;
                 },
                 function(event) {
                     var obj = jQuery(event.currentTarget);
-                    applyCssToState(obj, 'stroke', 'white');
-                    applyCssToState(obj, 'stroke-width', '1');
+                    if (!(event.currentTarget.id === $scope.highlightedState.id)) {
+                        applyCssToState(obj, 'stroke-width', '1');
+                        applyCssToState(obj, 'stroke', 'white');
+                    }
+                    else {
+                        applyCssToState(obj, 'stroke-width', '3');
+                        applyCssToState(obj, 'stroke', '#07EFC3');
+                    }
 
                     var text_element = jQuery($scope.svg).children('#state-name');
                     text_element.attr('visibility', 'hidden');

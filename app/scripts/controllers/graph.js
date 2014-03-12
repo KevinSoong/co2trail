@@ -6,7 +6,7 @@ angular.module('a2App')
   .controller('GraphCtrl', function ($scope, CsvReaderService, KWGraphService, KWCarbonTrailService) {
     $scope.width = 500;
     $scope.height = 500;
-    $scope.color = ['#13F6FF','#3d3', '#33d','#a66','#6a6', '#66a','#2d2', '#23d','#a56','#5a6', '#56a'];
+    $scope.color = ['#07EFC3', '#13F6FF', '#FFAD0D', '#0077F6', '#EA2E49','#a66','#6a6', '#66a','#2d2', '#23d','#a56','#5a6', '#56a'];
     $scope.showGuide = true;
     $scope.pathValues = [];
     $scope.pathDisplayState = [];
