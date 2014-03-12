@@ -41,6 +41,7 @@ angular.module('a2App')
                             }
                         );
                         console.log($scope.shadowData);
+                        $scope.$apply();
                     });
 
                 }
@@ -60,7 +61,6 @@ angular.module('a2App')
                     console.log($scope.data);
                     showAllLines();
                     $scope.$apply();
-                    
                 });
                 // $scope.x_label = $scope.data[0];
                 if ($scope.data)
@@ -69,7 +69,7 @@ angular.module('a2App')
         }
         if ((options.type === 'csv') || (options.type === undefined)) {
             if(options.url === undefined) {
-                options.url = 'http://localhost:9000/images/src.csv';
+                options.url = 'images/src.csv';
             }
             getDataFromCSV(options.url);
         }

@@ -16,7 +16,7 @@ angular.module('a2App')
     $scope.$watch('year', $scope.updateMapByYear, true);
     $scope.data = null;
     CsvReaderService.read(
-        'http://localhost:9000/images/map_src.csv',
+        'images/map_src.csv',
         function(d) {
             $scope.data = d;
             service.onMapDataLoaded(d);

@@ -74,10 +74,10 @@ angular.module('a2App')
                 var accumulated_y = height - ((accumulated_prev_y[j] + scaled_y_height) - viewport_y_min/ratio.y);
                 accumulated_prev_y[j] += scaled_y_height;
                 if (options.accumulate === true) {
-                  row.push([item_x, accumulated_y]);
+                  row.push([item_x.toFixed(2), accumulated_y.toFixed(2)]);
                 }
                 else
-                  row.push([item_x, scaled_y]);
+                  row.push([item_x.toFixed(2), scaled_y.toFixed(2)]);
                 
             }
             renderData.push(row);
@@ -94,7 +94,6 @@ angular.module('a2App')
             pathData.push({label: data[i+1][0], d:'M ' + row.join(' L ')});
         }
 
-
         var label_y_coord = [];
         var y_label = [];
 
@@ -108,9 +107,9 @@ angular.module('a2App')
         }
 
         var x_label = [];
-        console.log(options);
         if (data)
           x_label = data[0].slice(1,data[0].length);
+
         return {
             paths: pathData,
             renderData: renderData,

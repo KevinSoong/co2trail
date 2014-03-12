@@ -95,8 +95,8 @@ module.exports = function (grunt) {
         jshintrc: '.jshintrc'
       },
       all: [
-        'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        // 'Gruntfile.js',
+        // '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
     karma: {
@@ -175,6 +175,16 @@ module.exports = function (grunt) {
         }]
       }
     },
+    // ngsliderimage: {
+    //   dist: {
+    //     files: [{
+    //       // expand: true,
+    //       cwd: '<%= yeoman.app %>/components/ng-slider/dist/img',
+    //       src: '{,*/}*.{png,jpg,jpeg}',
+    //       dest: '<%= yeoman.dist %>/img'
+    //     }]
+    //   }
+    // },
     cssmin: {
       dist: {
         files: {
@@ -253,8 +263,9 @@ module.exports = function (grunt) {
             '*.{ico,txt}',
             '.htaccess',
             'components/**/*',
-            'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*'
+            'images/{,*/}*.{gif,webp,svg,csv}',
+            'styles/fonts/*',
+            'img/*'
           ]
         }]
       }
@@ -284,7 +295,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'jshint',
-    'test',
+    // 'test',
     'coffee',
     'compass:dist',
     'useminPrepare',
@@ -293,10 +304,10 @@ module.exports = function (grunt) {
     'htmlmin',
     'concat',
     'copy',
-    'cdnify',
-    'ngmin',
-    'uglify',
-    'rev',
+    // 'cdnify',
+    // 'ngmin',
+    // 'uglify',
+    // 'rev',
     'usemin'
   ]);
 

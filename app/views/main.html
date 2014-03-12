@@ -29,7 +29,7 @@ margin: 30px 70px;">
   <path ng-repeat="path in data.paths" d="{{path.d}}" class="data-path {{path.label}}"
         fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"/>
   <!-- hover dots -->
-  <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="pathDisplayState[$index]" style="visibility:hidden"/>
+  <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="pathDisplayState[$index]" transform="translate(30)" style="visibility:hidden"/>
   <text ng-repeat="label in data.x_label" x="{{$last? data.label_x_coord[$index]-25: data.label_x_coord[$index]}}" y="{{height+20}}" fill="red" style="font-size:10px;" transform="translate(30)" ng-show="$index % 10 == 0">{{label}}</text>
 
   <text ng-repeat="label in data.y_label" x="0" y="{{data.label_y_coord[$index]}}" fill="red" style="font-size:10px;" transform="" ng-show="$index % 2 == 0">{{label}}</text>
@@ -98,20 +98,20 @@ margin: 30px 70px;">
                   
                   <!-- shadow path at the bottom -->
                   <path ng-repeat="path in shadowData.paths" d="{{path.d}}" class="shadow-path {{path.label}}"
-                        fill="none" stroke="#777" stroke-width="1" transform="translate(30)"/>
-                  <rect x="30" y="0" width="{{width}}" height="{{height}}" fill="#222" opacity="0.3" ng-mousemove="mousemove($event)"/>
+                        fill="none" stroke="#777" stroke-width="1" transform="translate(30)"></path>
+                  <rect x="30" y="0" width="{{width}}" height="{{height}}" fill="#222" opacity="0.3" ng-mousemove="mousemove($event)"></rect>
                   <!-- hover guide -->
                   <!-- <line id="hover-guide" x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)" style="stroke:rgb(0,255,0);stroke-width:1" /> -->
 
                   <!-- y-axis -->
-                  <line x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)"/>
+                  <line x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)"></line>
                   <!-- x-axis -->
-                  <line x1="2" y1="{{height-1}}" x2="{{width}}" y2="{{height-1}}" transform="translate(30)"/>
+                  <line x1="2" y1="{{height-1}}" x2="{{width}}" y2="{{height-1}}" transform="translate(30)"></line>
                   <!-- main lines -->
                   <path ng-repeat="path in data.paths" d="{{path.d}}" class="data-path {{path.label}}"
-                        fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"/>
+                        fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"></path>
                   <!-- hover dots -->
-                  <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="showGuide" style="visibility:hidden"/>
+                  <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="showGuide" style="visibility:hidden" transform="translate(30)"></circle>
                   <text ng-repeat="label in data.x_label" x="{{$last? data.label_x_coord[$index]-25: data.label_x_coord[$index]}}" y="{{height+20}}" style="font-size:10px;" transform="translate(30)" ng-show="$index % 5 == 0">{{label}}</text>
 
                   <text ng-repeat="label in data.y_label" x="0" y="{{data.label_y_coord[$index]}}" style="font-size:10px;" transform="">{{label}}</text>
