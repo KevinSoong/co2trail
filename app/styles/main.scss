@@ -23,6 +23,7 @@
 }
 
 .legend .label {
+    font-size: 10px;
     color: #b7b7b7;
     clear: both;
     font-weight: 200;
@@ -78,15 +79,20 @@ iframe {
 }
 
 .mainview {
-    padding: 80px 0px 0px 0px;
+    padding: 20px 0px 0px 0px;
+    min-height: 100%;
+    height: auto;
+}
 
+.main-view {
+    margin-top: 56px;
 }
 
 .row-fluid [class*="span"].sidebar {
     margin: 0;
-    padding: 80px 30px 35px 30px;
+    padding: 20px 30px 35px 30px;
     background-color: #424242;
-    min-height: 739px;
+    min-height: 680px;
     height: 100%;
     .info
     {
@@ -179,6 +185,11 @@ iframe {
     width: 1200px;
 }
 
+html, body {
+    height: 100%;
+    height: 700px;
+}
+
 body {
     background-color: #333;
     color: #b7b7b7;
@@ -191,7 +202,7 @@ h3 {
 }
 
 h4 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     color: #07EFC3;
 }
@@ -288,6 +299,8 @@ div.plant-line {
 }
 
 .map-title-only {
+    color: #b7b7b7;
+    font-size: 14px;
     font-weight: lighter;
     letter-spacing: 1px;
     margin-top: 30px;
@@ -303,4 +316,36 @@ hr {
     // position: absolute;
     // float: left;
     margin-right: 20px;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+  // padding-top: 60px;
+}
+
+#footer {
+    height: 60px;
+    background-color: #303030;
+    span {
+        margin-top: 20px;
+    }
+    .credit {
+        font-size: 12px;
+        margin-top: 20px;
+        color: #676767;
+        // margin-top: 20px;
+        a {
+            color: #b7b7b7;
+            // text-decoration: underline;
+        }
+        a:hover {
+            color: #b7b7b7;
+        }
+    }
 }
