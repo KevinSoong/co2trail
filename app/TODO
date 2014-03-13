@@ -1,11 +1,24 @@
 TODO
 
+* Swap data
+    refactor reader?
+    rescale?
+
+* Evaluation
+
+* build-source for ctool
+
+
+DONE
+
 * Do info
     ranking 
     avg
 * Do header/logo
 
 * Do background paths
+
+WONT DO
 
 --- filter mode fin ---
 * Do comparison
