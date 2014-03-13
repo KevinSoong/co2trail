@@ -7,7 +7,7 @@ angular.module('a2App')
     $scope.width = 500;
     $scope.height = 500;
     $scope.color = ['#07EFC3', '#13F6FF', '#FFAD0D', '#0077F6', '#EA2E49','#a66','#6a6', '#66a','#2d2', '#23d','#a56','#5a6', '#56a'];
-    $scope.showGuide = true;
+    $scope.showGuide = false;
     $scope.pathValues = [];
     $scope.pathDisplayState = [];
     $scope.service = KWCarbonTrailService;
@@ -113,10 +113,10 @@ angular.module('a2App')
         var data = $scope.data.renderData;
         
         var tooltip = angular.element('#'+graphID+' .tooltip');
-        tooltip.css('top',event.screenY-80);
-        tooltip.css('left',x_columns[closet_column_index]+140);
+        tooltip.css('top',$scope.height+8);
+        tooltip.css('left',x_columns[closet_column_index]+18);
         tooltip.html($scope.data.x_label[closet_column_index]);
-        tooltip.css('visibility', 'visible');
+
         for (i=0;i<data.length; i++) {
             var dot = angular.element('#'+graphID+' #hover-dot-'+i);
             var x = data[i][closet_column_index][0]+30;
@@ -124,8 +124,8 @@ angular.module('a2App')
                 x-=4;
             dot.attr('cx',x);
             dot.attr('cy',data[i][closet_column_index][1]);
-            dot.css('visibility', 'visible');
         }
+        // $scope.showGuide = true;
         $scope.pathValues.length = 0;
         for (i=1; i<$scope.rawData.length; i++)
             $scope.pathValues.push($scope.rawData[i][closet_column_index+1]);

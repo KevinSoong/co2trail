@@ -4,10 +4,12 @@
 <div class="modal-body container">
     <div class="graph" id="method-graph" ng-controller="GraphCtrl" ng-init="init({width:150, height:150})" style="width: 480px; margin: 30px 70px;">
 
-        <div class="graph-container" style="float:left;">
-            <div class="tooltip" ng-show="showGuide" style="visibility:hidden">YEAR</div>
+        <div class="graph-container" style="float:left; position:relative;">
+            <div class="tooltip-container">
+                <div class="tooltip" ng-show="showGuide" ng-show="pathDisplayState[0]">YEAR</div>
+            </div>
             <svg height="{{height+30}}" width="{{width+30}}">
-                <rect x="30" y="0" width="{{width}}" height="{{height}}" fill="#333" ng-mousemove="mousemove($event)"></rect>
+                <rect x="30" y="0" width="{{width}}" height="{{height}}" fill="#333"></rect>
                 <!-- hover guide -->
                 <!-- <line id="hover-guide" x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)" style="stroke:rgb(0,255,0);stroke-width:1" /> -->
                 <!-- y-axis -->
@@ -18,10 +20,11 @@
                 <path ng-repeat="path in data.paths" d="{{path.d}}" class="data-path {{path.label}}"
                 fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"></path>
                 <!-- hover dots -->
-                <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="pathDisplayState[$index]" transform="translate(30)" style="visibility:hidden"></circle>
+                <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="pathDisplayState[$index] && showGuide" transform="translate(30)"></circle>
                 <text ng-repeat="label in data.x_label" x="{{$last? data.label_x_coord[$index]-25: data.label_x_coord[$index]}}" y="{{height+20}}" fill="red" style="font-size:10px;" transform="translate(30)" ng-show="$index % 10 == 0">{{label}}</text>
 
                 <text ng-repeat="label in data.y_label" x="0" y="{{data.label_y_coord[$index]}}" fill="red" style="font-size:10px;" transform="" ng-show="$index % 2 == 0">{{label}}</text>
+                <rect x="30" y="0" width="{{width}}" height="{{height}}" opacity="0" fill="#333" ng-mousemove="mousemove($event)" ng-mouseleave="mouseleave($event)" ng-mouseenter="mouseenter($event)"></rect>
             </svg>
         </div>
         <div class="legend" style="float:left;">
@@ -36,7 +39,7 @@
             </ul>
         </div>
     </div>
-    <p style="clear:both;">Cars and Trucks are massive sources of CO<sup>2</sup> emission. You can help by:</p>
+    <p style="clear:both;">Cars and Trucks are massive sources of CO<sup>2</sup> emissions. You can help by:</p>
     <ul>
         <li>Drive efficiently</li>
         <li>Choose an energy-efficient vehicle</li>

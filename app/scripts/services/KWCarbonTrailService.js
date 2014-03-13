@@ -61,6 +61,14 @@ angular.module('a2App')
     this.stateID = null;
     this.sidePanelLineData = [];
     this.sidePanelShadowData = [];
+    this.generateMapDataByAverage = function() {
+        var i;
+        var renderData = {};
+        angular.forEach(this.state_data, function(value, key) {
+            renderData[key] = value.average;
+        })
+        return renderData;
+    };
     this.filterDataByYear = function(data, year) {
         var i;
         var renderData = {};

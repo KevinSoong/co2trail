@@ -23,8 +23,15 @@
 }
 
 .legend .label {
+    color: #b7b7b7;
     clear: both;
+    font-weight: 200;
     background-color: transparent;
+}
+
+.legend li {
+    margin-left: 0px;
+    padding-left: 5px;
 }
 
 .state {
@@ -44,13 +51,18 @@ iframe {
 }
 
 .graph {
-
     .tooltip {
-        position: absolute;
+        color: white;
+        font-weight: 400;
+        position: relative;
         opacity: 1;
-        background-color: rgba(20,20,20,0.4);
+        background-color: rgba(40,40,40,0.9);
         padding:4px;
         line-height: 1;
+        width: 25px;
+    }
+    .tooltip-container {
+        position:absolute;
     }
     line {
         stroke: white;
@@ -72,9 +84,9 @@ iframe {
 
 .row-fluid [class*="span"].sidebar {
     margin: 0;
-    padding: 80px 30px;
+    padding: 80px 30px 35px 30px;
     background-color: #424242;
-    min-height: 720px;
+    min-height: 739px;
     height: 100%;
     .info
     {
@@ -197,9 +209,9 @@ h4 {
 .year-control {
     font-size: 18px;
     .year-label {
-        padding-left:20px;
+        padding-left:10px;
         h4 {
-            padding-bottom: 10px;
+            padding-top: 10px;
         }
     }
     .map-scale {
@@ -212,7 +224,10 @@ h4 {
 .modal {
     background-color: #333;
     .modal-header {
-        border-bottom: 1px solid #424242;
+        background-color: #303030;
+        // border-bottom: 1px solid #424242;
+        border-bottom: none;
+        border-radius: 2px 2px 0px 0px;
         padding: 15px;
     }
     .modal-body {
@@ -222,6 +237,7 @@ h4 {
         border-top: none;//1px solid #666;
         background-color: #424242;
         box-shadow:none;
+        border-radius: 0px 0px 2px 2px;
         span {
             margin-top: 5px;
         }
@@ -235,7 +251,7 @@ h4 {
 
 .guide-text {
     font-weight:500;
-    
+    color: #07EFC3;
 }
 
 .side-title {
@@ -251,7 +267,8 @@ div.plant-line {
     background: transparent url('images/power-plant.svg') repeat-x;
 }
 .plant-line-desc {
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .highlighted {
@@ -262,18 +279,25 @@ div.plant-line {
     margin-top: 0px;
 }
 
-.graph-title, .map-title{
+.graph-title, .map-title, .map-title-only{
     // text-align: center;
     padding-left:10px;
     color: #b7b7b7;
     margin-top: 0px;
     margin-bottom: 20px;
 }
+
+.map-title-only {
+    font-weight: lighter;
+    letter-spacing: 1px;
+    margin-top: 30px;
+}
+
 hr {
     border-top: 1px solid #333;
     border-bottom: none;
-    margin-top: 15px;
-    margin-bottom: 30px;
+    margin-top: 25px;
+    margin-bottom: 34px;
 }
 .stats-title {
     // position: absolute;

@@ -13,14 +13,21 @@ angular.module('a2App')
         }
         $scope.renderMap();
     }
-    $scope.$watch('year', $scope.updateMapByYear, true);
+    $scope.updateMapByAverage = function() {
+        if ($scope.data!=null) {
+            $scope.renderData = service.generateMapDataByAverage();
+        }
+        $scope.renderMap();
+    }
+    // $scope.$watch('year', $scope.updateMapByYear, true);
     $scope.data = null;
     CsvReaderService.read(
         'images/map_src.csv',
         function(d) {
             $scope.data = d;
             service.onMapDataLoaded(d);
-            $scope.updateMapByYear();
+            // $scope.updateMapByYear();
+            $scope.updateMapByAverage();
         }
     );
 
@@ -38,13 +45,13 @@ angular.module('a2App')
             obj.css(property, value);
         }
     }
-    function assignTextToState(text_selector, state) {
+    function assignTextToState(text_selector, state, text) {
         var text_element = jQuery($scope.svg).children(text_selector);
         text_element.attr('visibility', 'visible');
         var box = state.getBoundingClientRect();
         text_element.attr('x', box.left+box.width);
         text_element.attr('y', box.top+box.height/2);
-        text_element.html(state.id);
+        text_element.html(text);
     }
 
     function sendStateChanged() {
@@ -72,7 +79,7 @@ angular.module('a2App')
                     applyCssToState(obj, 'stroke', '#07EFC3');
                     applyCssToState(obj, 'stroke-width', '4');
 
-                    assignTextToState('#highlighted-state-name', event.currentTarget);
+                    assignTextToState('#highlighted-state-name', event.currentTarget, event.currentTarget.id);
                     $scope.highlightedState = event.currentTarget;
                     $scope.svg.appendChild($scope.highlightedState);
                     sendStateChanged();
@@ -97,7 +104,7 @@ angular.module('a2App')
                         if (!(event.currentTarget.id === $scope.highlightedState.id)) {
                             applyCssToState(obj, 'stroke', 'white');
                         }
-                    assignTextToState('#state-name', event.currentTarget);
+                    assignTextToState('#state-name', event.currentTarget, event.currentTarget.id+" "+service.state_data[event.currentTarget.id].average.toFixed(2));
 
                     $scope.hoverUsState = true;
                 },
