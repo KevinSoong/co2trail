@@ -146,4 +146,10 @@ angular.module('a2App')
         callback();
       });
     };
+
+    this.getPowerPlantNumber = function() {
+        console.log(this.stateID);
+        console.log(parseInt((this.state_data[this.stateID].average)/22.011155));
+        return new Array(parseInt((this.state_data[this.stateID].average)/22.011155));
+    }
   });

@@ -16,8 +16,9 @@
 
 .legend .palette {
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
+    margin-top: 5px;
     float: left;
 }
 
@@ -77,14 +78,20 @@ iframe {
     height: 100%;
     .info
     {
-        padding: 0px 10px 30px 10px;
+        padding: 0px 10px 10px 10px;
         margin-bottom:0px;
         padding-bottom:20px;
-        // border: solid 1px white;
-        h4 {
-            margin-top: 30px;
-            margin-bottom: 0px;
+        .title {
+            height: 140px;
         }
+        // border: solid 1px white;
+        // h4 {
+        //     margin-top: 30px;
+        //     margin-bottom: 0px;
+        // }
+        // p {
+        //     padding-top:0px;
+        // }
     }
     .greeting {
         position: absolute;
@@ -236,3 +243,37 @@ h4 {
     // color: #07EFC3;
 }
 
+div.plant-line {
+    height: 19px;
+    background: transparent url('images/power-plant.svg') repeat-x;
+}
+.plant-line-desc {
+    margin-top: 20px;
+}
+
+.highlighted {
+    color: #07EFC3;
+}
+
+.info-power-plant {
+    margin-top: 0px;
+}
+
+.graph-title, .map-title{
+    // text-align: center;
+    padding-left:10px;
+    color: #b7b7b7;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+hr {
+    border-top: 1px solid #333;
+    border-bottom: none;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+.stats-title {
+    // position: absolute;
+    // float: left;
+    margin-right: 20px;
+}

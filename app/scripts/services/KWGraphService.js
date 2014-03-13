@@ -74,10 +74,10 @@ angular.module('a2App')
                 var accumulated_y = height - ((accumulated_prev_y[j] + scaled_y_height) - viewport_y_min/ratio.y);
                 accumulated_prev_y[j] += scaled_y_height;
                 if (options.accumulate === true) {
-                  row.push([item_x.toFixed(2), accumulated_y.toFixed(2)]);
+                  row.push([item_x.toFixed(4), accumulated_y.toFixed(4)]);
                 }
                 else
-                  row.push([item_x.toFixed(2), scaled_y.toFixed(2)]);
+                  row.push([item_x.toFixed(4), scaled_y.toFixed(4)]);
                 
             }
             renderData.push(row);

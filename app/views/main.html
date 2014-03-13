@@ -22,13 +22,21 @@
           <p class="guide-text">Click on the map to see more details>></p>
         </div>
         <div class="info">
+          <div class="title">
+            <!-- <p></p> -->
           <h3 class="side-title">{{service.state_data[service.stateID].name}}</h3>
-          <p>
-            Avg: {{service.state_data[service.stateID].average| number:2}} (MtCO2e)
-          </p>
-          <h4>CO2 Emission ranking: {{service.state_data[service.stateID].ranking}}</h4>
+          <p>Tranportation CO2 Emission Ranking: <span class="highlighted">{{service.state_data[service.stateID].ranking}}</span></p>
+        </div>
+          <!-- <br/>
+          <br/>
+          <br/> -->
+
 
         </div>
+<!--         <h4 class="graph-title">
+            Trend in past 15 years
+            
+          </h4> -->
         <div class="tooltip" ng-show="showGuide" style="visibility:hidden">YEAR</div>
         <svg height="{{height+30}}" width="{{width+30}}">
 
@@ -61,10 +69,24 @@
               <div id="path-legend-{{path.label}}" ng-click="togglePath($index)" class="item-container" ng-class="{hidden:!pathDisplayState[$index]}">
                 <div class="palette col-md-4" style="background-color: {{color[$index]}};"></div>
                 <!-- <p class="label col-md-4">{{path.label}}</p> -->
-                <p class="label col-md-4">{{pathValues[$index]| number:2}} MtCO2e</p>
+                <p class="label col-md-4">{{pathValues[$index]| number:2}} MMTCDE</p>
               </div>
             </li>
           </ul>
+        </div>
+        <hr/>
+        <div class="row-fluid">
+          <p class="stats-title span1">Avg.</p><div class="pull-right"><span class="side-title">{{service.state_data[service.stateID].average| number:2}}</span> <span style="font-size:10px;">MMTCDE</span></div>
+        </div>
+          <div class="info-power-plant">        
+            <div class="plant-line" style="width: {{service.state_data[service.stateID].average/22.011155*19}}px; background-image:url('images/power-plant.svg');" ng-show="{{(service.sidePanelLineData.length===0)}}">
+              <div class="plant-line" style="opacity:0.1;width: {{service.state_data[service.stateID].average? 220: 0}}px; background-image:url('images/power-plant.svg');"></div>
+            </div>
+
+          <p class="plant-line-desc">
+            Equivalent to <span class="highlighted">{{service.state_data[service.stateID].average/22.011155| number:2}}</span> most polluting power plants.
+          </p>
+          
         </div>
 
       </div>
@@ -74,7 +96,7 @@
       <iframe id="map" src="images/us.svg" width="100%" onload="onMapLoaded()"> </iframe>
       <div class="year-control row">
         <div class="year-label span4">
-          <h4>Emission Map of {{year}}</h4>
+          <h4 class="map-title">Emission Map of {{year}}</h4>
           <input ng-model="year"  type="text" id="yearSlider" slider options="slider_options" ng-click="onYearChanged"/>
 
         </div>
