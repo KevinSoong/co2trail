@@ -1,0 +1,111 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <a class="brand" href="#"><img src="images/logo.png">CO2Trail</a>
+    <p>CO<sup>2</sup> Emission of Transportation in the US (1995-2010)</p>
+    <ul class="nav pull-right">
+      <li ng-controller="TakeActionCtrl">
+        <a class="takeaction-button btn btn-success" ng-click="open()">How can I help?</a>        
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="main-view container">
+  <div class="row-fluid">
+    <div class="sidebar span3">
+
+      <div class="graph" id="map-detail" ng-controller="GraphCtrl" ng-init="init({type:'service', name:'sidePanelLineData', width:200, height:200, viewport_y_max:250, viewport_y_scale:50, shadow_name:'sidePanelShadowData'})">
+        <div class="greeting" ng-show="service.sidePanelLineData.length===0">
+          <h3 class="side-title">CO2Trail</h3>
+          <p>Transportation plays an big role in carbon dioxide emission. This visualization helps you understand the how the CO<sup>2</sup> emission of transportation varies from place to place in the past 15 years.</p>
+          <br>
+          <p class="guide-text">Click on the map to see more details>></p>
+        </div>
+        <div class="info">
+          <div class="title">
+            <!-- <p></p> -->
+          <h3 class="side-title">{{service.state_data[service.stateID].name}}</h3>
+          <p>Tranportation CO2 Emission Ranking: <span class="highlighted">{{service.state_data[service.stateID].ranking}}</span></p>
+        </div>
+          <!-- <br/>
+          <br/>
+          <br/> -->
+
+
+        </div>
+<!--         <h4 class="graph-title">
+            Trend in past 15 years
+            
+          </h4> -->
+        <div class="tooltip" ng-show="showGuide" style="visibility:hidden">YEAR</div>
+        <svg height="{{height+30}}" width="{{width+30}}">
+
+
+
+          <!-- shadow path at the bottom -->
+          <path ng-repeat="path in shadowData.paths" d="{{path.d}}" class="shadow-path {{path.label}}" fill="none" stroke="#777" stroke-width="1" transform="translate(30)"></path>
+          <rect x="30" y="0" width="{{width}}" height="{{height}}" fill="#222" opacity="0.3" ng-mousemove="mousemove($event)"></rect>
+          <!-- hover guide -->
+          <!-- <line id="hover-guide" x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)" style="stroke:rgb(0,255,0);stroke-width:1" /> -->
+
+          <!-- y-axis -->
+          <line x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)"></line>
+          <!-- x-axis -->
+          <line x1="2" y1="{{height-1}}" x2="{{width}}" y2="{{height-1}}" transform="translate(30)"></line>
+          <!-- main lines -->
+          <path ng-repeat="path in data.paths" d="{{path.d}}" class="data-path {{path.label}}" fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"></path>
+          <!-- hover dots -->
+          <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="showGuide" style="visibility:hidden" transform="translate(30)"></circle>
+          <text ng-repeat="label in data.x_label" x="{{$last? data.label_x_coord[$index]-25: data.label_x_coord[$index]}}" y="{{height+20}}" style="font-size:10px" transform="translate(30)" ng-show="$index % 5 == 0">{{label}}</text>
+
+          <text ng-repeat="label in data.y_label" x="0" y="{{data.label_y_coord[$index]}}" style="font-size:10px" transform="">{{label}}</text>
+        </svg>
+
+        <div class="legend">
+          <ul>
+            <li ng-repeat="path in data.paths" class="container-fluid">
+              <div id="path-legend-{{path.label}}" ng-click="togglePath($index)" class="item-container" ng-class="{hidden:!pathDisplayState[$index]}">
+                <div class="palette col-md-4" style="background-color: {{color[$index]}}"></div>
+                <!-- <p class="label col-md-4">{{path.label}}</p> -->
+                <p class="label col-md-4">{{pathValues[$index]| number:2}} MMTCDE</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <hr>
+        <div class="row-fluid">
+          <p class="stats-title span1">Avg.</p><div class="pull-right"><span class="side-title">{{service.state_data[service.stateID].average| number:2}}</span> <span style="font-size:10px">MMTCDE</span></div>
+        </div>
+          <div class="info-power-plant">        
+            <div class="plant-line" style="width: {{service.state_data[service.stateID].average/22.011155*19}}px; background-image:url('images/power-plant.svg')" ng-show="{{(service.sidePanelLineData.length===0)}}">
+              <div class="plant-line" style="opacity:0.1;width: {{service.state_data[service.stateID].average? 220: 0}}px; background-image:url('images/power-plant.svg')"></div>
+            </div>
+
+          <p class="plant-line-desc">
+            Equivalent to <span class="highlighted">{{service.state_data[service.stateID].average/22.011155| number:2}}</span> most polluting power plants.
+          </p>
+          
+        </div>
+
+      </div>
+    </div>
+    <div id="map-container" class="span9 mainview" ng-controller="MapCtrl">
+      <!-- <iframe id="map" src="images/us.svg" width="959" height="593" onload="onMapLoaded()"> </iframe> -->
+      <iframe id="map" src="images/us.svg" width="100%" onload="onMapLoaded()"> </iframe>
+      <div class="year-control row">
+        <div class="year-label span4">
+          <h4 class="map-title">Emission Map of {{year}}</h4>
+          <input ng-model="year" type="text" id="yearSlider" slider="" options="slider_options" ng-click="onYearChanged">
+
+        </div>
+        <div class="span3">
+
+        </div>
+        <div class="span3 offset2">
+          <object class="map-scale" data="images/scale.svg" type="image/svg+xml"></object>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

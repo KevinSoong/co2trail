@@ -311,5 +311,24 @@ module.exports = function (grunt) {
     'usemin'
   ]);
 
+  grunt.registerTask('build-source', [
+    'clean:dist',
+    'jshint',
+    'test',
+    'coffee',
+    'compass:dist',
+    'useminPrepare',
+    'imagemin',
+    'cssmin',
+    'htmlmin',
+    'concat',
+    'copy',
+    // 'cdnify',
+    'ngmin',
+    // 'uglify',
+    // 'rev',
+    'usemin'
+  ]);
+
   grunt.registerTask('default', ['build']);
 };
