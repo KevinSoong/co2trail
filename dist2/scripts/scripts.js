@@ -95,7 +95,7 @@ angular.module('a2App').controller('GraphCtrl', [
       '#5a6',
       '#56a'
     ];
-    $scope.showGuide = true;
+    $scope.showGuide = false;
     $scope.pathValues = [];
     $scope.pathDisplayState = [];
     $scope.service = KWCarbonTrailService;
@@ -198,10 +198,9 @@ angular.module('a2App').controller('GraphCtrl', [
       // guide.attr('x2', x_columns[closet_column_index]-25);
       var data = $scope.data.renderData;
       var tooltip = angular.element('#' + graphID + ' .tooltip');
-      tooltip.css('top', event.screenY - 80);
-      tooltip.css('left', x_columns[closet_column_index] + 140);
+      tooltip.css('top', $scope.height + 8);
+      tooltip.css('left', x_columns[closet_column_index] + 18);
       tooltip.html($scope.data.x_label[closet_column_index]);
-      tooltip.css('visibility', 'visible');
       for (i = 0; i < data.length; i++) {
         var dot = angular.element('#' + graphID + ' #hover-dot-' + i);
         var x = data[i][closet_column_index][0] + 30;
@@ -209,8 +208,8 @@ angular.module('a2App').controller('GraphCtrl', [
           x -= 4;
         dot.attr('cx', x);
         dot.attr('cy', data[i][closet_column_index][1]);
-        dot.css('visibility', 'visible');
       }
+      // $scope.showGuide = true;
       $scope.pathValues.length = 0;
       for (i = 1; i < $scope.rawData.length; i++)
         $scope.pathValues.push($scope.rawData[i][closet_column_index + 1]);
@@ -247,12 +246,19 @@ angular.module('a2App').controller('MapCtrl', [
       }
       $scope.renderMap();
     };
-    $scope.$watch('year', $scope.updateMapByYear, true);
+    $scope.updateMapByAverage = function () {
+      if ($scope.data != null) {
+        $scope.renderData = service.generateMapDataByAverage();
+      }
+      $scope.renderMap();
+    };
+    // $scope.$watch('year', $scope.updateMapByYear, true);
     $scope.data = null;
     CsvReaderService.read('images/map_src.csv', function (d) {
       $scope.data = d;
       service.onMapDataLoaded(d);
-      $scope.updateMapByYear();
+      // $scope.updateMapByYear();
+      $scope.updateMapByAverage();
     });
     $scope.highlightedState = null;
     function applyCssToState(obj, property, value) {
@@ -265,13 +271,13 @@ angular.module('a2App').controller('MapCtrl', [
         obj.css(property, value);
       }
     }
-    function assignTextToState(text_selector, state) {
+    function assignTextToState(text_selector, state, text) {
       var text_element = jQuery($scope.svg).children(text_selector);
       text_element.attr('visibility', 'visible');
       var box = state.getBoundingClientRect();
       text_element.attr('x', box.left + box.width);
       text_element.attr('y', box.top + box.height / 2);
-      text_element.html(state.id);
+      text_element.html(text);
     }
     function sendStateChanged() {
       if ($scope.highlightedState && $scope.data) {
@@ -295,7 +301,7 @@ angular.module('a2App').controller('MapCtrl', [
           obj.attr('filter', 'url(#drop-shadow)');
           applyCssToState(obj, 'stroke', '#07EFC3');
           applyCssToState(obj, 'stroke-width', '4');
-          assignTextToState('#highlighted-state-name', event.currentTarget);
+          assignTextToState('#highlighted-state-name', event.currentTarget, event.currentTarget.id);
           $scope.highlightedState = event.currentTarget;
           $scope.svg.appendChild($scope.highlightedState);
           sendStateChanged();
@@ -315,7 +321,7 @@ angular.module('a2App').controller('MapCtrl', [
             if (!(event.currentTarget.id === $scope.highlightedState.id)) {
               applyCssToState(obj, 'stroke', 'white');
             }
-          assignTextToState('#state-name', event.currentTarget);
+          assignTextToState('#state-name', event.currentTarget, event.currentTarget.id + ' ' + service.state_data[event.currentTarget.id].average.toFixed(2));
           $scope.hoverUsState = true;
         }, function (event) {
           var obj = jQuery(event.currentTarget);
@@ -730,6 +736,14 @@ angular.module('a2App').service('KWCarbonTrailService', function () {
   this.stateID = null;
   this.sidePanelLineData = [];
   this.sidePanelShadowData = [];
+  this.generateMapDataByAverage = function () {
+    var i;
+    var renderData = {};
+    angular.forEach(this.state_data, function (value, key) {
+      renderData[key] = value.average;
+    });
+    return renderData;
+  };
   this.filterDataByYear = function (data, year) {
     var i;
     var renderData = {};
@@ -812,8 +826,9 @@ angular.module('a2App').service('KWCarbonTrailService', function () {
     });
   };
   this.getPowerPlantNumber = function () {
-    console.log(this.stateID);
-    console.log(parseInt(this.state_data[this.stateID].average / 22.011155));
+    // Based on Bowen power plant, GA. Annual CO2 emissions: 22,011,155 MTCD
+    // Source: Wu, Brandon. Lethal Legacy: A comprehensive look at america's dirtiest power plants. US PIRG Education Fund, 2003. pp.20.
+    // Available at: http://www.csu.edu/cerc/documents/LethalLegacy_001.pdf
     return new Array(parseInt(this.state_data[this.stateID].average / 22.011155));
   };
 });
@@ -821,7 +836,9 @@ angular.module('a2App').service('KWCarbonTrailService', function () {
 angular.module('a2App').controller('TakeActionCtrl', [
   '$scope',
   '$modal',
-  function ($scope, $modal) {
+  '$sce',
+  function ($scope, $modal, $sce) {
+    $scope.likeURL = $sce.trustAsResourceUrl('http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fkjsoong.people.si.umich.edu%2Fco2trail%2F&width&layout=button_count&action=like&show_faces=false&share=false&height=21&appId=180750652090500');
     $scope.open = function () {
       var modalInstance = $modal.open({
           templateUrl: 'views/take-action.html',

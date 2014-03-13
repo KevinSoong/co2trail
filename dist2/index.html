@@ -6,10 +6,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title></title>
-    <meta name="description" content="">
+    <title>CO2Trail</title>
+    <meta name="description" content="Visualization of US transportation carbon footprint">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <meta property="og:image" content="images/favicon-96x96.png">
+
     <link rel="stylesheet" href="styles/main.css">
   </head>
   <body ng-app="a2App">
@@ -23,8 +25,22 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
-    
+    <div id="wrap" class="container" ng-view=""></div>
+    <div id="footer">
+      <div class="container row-fluid">
+        <p class="credit span5"> Data Source: <a href="http://www.epa.gov">EPA</a>, <a href="http://www.rita.dot.gov/bts/home">BTS</a>.  Created by <a href="http://kevinsoong.com">Kevin Soong</a>. <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC Attribution 4.0</a>.</p>
+        <span class="pull-right">
+      <iframe style="height: 20px;width:130px" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fkjsoong.people.si.umich.edu%2Fco2trail%2F&width&layout=button_count&action=like&show_faces=false&share=true&height=21&appId=180750652090500"></iframe>
+    </span> 
+    <span class="pull-right">
+    <iframe style="height: 20px;width:70px" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=en-US&amp;url=http://kjsoong.people.si.umich.edu/co2trail/&amp;parent=http://kjsoong.people.si.umich.edu/" allowtransparency="true" frameborder="0" scrolling="no" title="+1"></iframe>
+    </span>
+    <span class="pull-right">
+    <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http://kjsoong.people.si.umich.edu/co2trail/&via=kjsery&text=Check out CO2Trail, a super cool visualization of transportation carbon footprint." style="width:90px; height:20px"></iframe>
+    </span>
+      </div>
+
+    </div>
     <script src="components/jquery/dist/jquery.min.js"></script>
     <script src="components/angular/angular.min.js"></script>
     <script src="components/angular-route/angular-route.min.js"></script>
