@@ -156,8 +156,9 @@ angular.module('a2App')
     };
 
     this.getPowerPlantNumber = function() {
-        console.log(this.stateID);
-        console.log(parseInt((this.state_data[this.stateID].average)/22.011155));
+        // Based on Bowen power plant, GA. Annual CO2 emissions: 22,011,155 MTCD
+        // Source: Wu, Brandon. Lethal Legacy: A comprehensive look at america's dirtiest power plants. US PIRG Education Fund, 2003. pp.20.
+        // Available at: http://www.csu.edu/cerc/documents/LethalLegacy_001.pdf
         return new Array(parseInt((this.state_data[this.stateID].average)/22.011155));
     }
   });
