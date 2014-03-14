@@ -306,6 +306,10 @@ div.plant-line {
     margin-top: 30px;
 }
 
+.row-fluid .map-scale-container.span3 {
+    margin-left: 80px;
+}
+
 hr {
     border-top: 1px solid #333;
     border-bottom: none;
@@ -331,13 +335,19 @@ hr {
 
 #footer {
     height: 60px;
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #303030;
     span {
         margin-top: 20px;
+        margin-right: 20px;
     }
     .credit {
+        
         font-size: 12px;
         margin-top: 20px;
+        margin-left: 20px;
         color: #676767;
         // margin-top: 20px;
         a {

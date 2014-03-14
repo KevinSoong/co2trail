@@ -5,8 +5,17 @@ angular.module('a2App')
     var service = KWCarbonTrailService;
     $scope.year = "1995";
     $scope.slider_options = {from:1995, to:2010, step:1};
-
+    $scope.options = {};
     $scope.hoverUsState = false;
+
+    $scope.init = function(options) {
+        $scope.options = options;
+        if ($scope.options.byYear) {
+            $scope.updateMapByYear();
+            $scope.$watch('year', $scope.updateMapByYear, true);
+        }
+    }
+
     $scope.updateMapByYear = function() {
         if ($scope.data!=null) {
             $scope.renderData = service.filterDataByYear($scope.data, $scope.year);
@@ -19,14 +28,13 @@ angular.module('a2App')
         }
         $scope.renderMap();
     }
-    // $scope.$watch('year', $scope.updateMapByYear, true);
+    // 
     $scope.data = null;
     CsvReaderService.read(
         'images/map_src.csv',
         function(d) {
             $scope.data = d;
             service.onMapDataLoaded(d);
-            // $scope.updateMapByYear();
             $scope.updateMapByAverage();
         }
     );

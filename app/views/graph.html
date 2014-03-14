@@ -5,14 +5,14 @@
   <!-- hover guide -->
   <!-- <line id="hover-guide" x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)" style="stroke:rgb(0,255,0);stroke-width:1" /> -->
     <!-- y-axis -->
-  <line x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)"/>
+  <line x1="2" y1="0" x2="2" y2="{{height}}" transform="translate(30)"></line>
   <!-- x-axis -->
-  <line x1="2" y1="{{height-1}}" x2="{{width}}" y2="{{height-1}}" transform="translate(30)"/>
+  <line x1="2" y1="{{height-1}}" x2="{{width}}" y2="{{height-1}}" transform="translate(30)"></line>
   
   <path ng-repeat="path in data.paths" d="{{path.d}}" class="data-path {{path.label}}"
-        fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"/>
+        fill="none" stroke="{{color[$index]}}" stroke-width="2" transform="translate(30)" ng-show="pathDisplayState[$index]"></path>
   <!-- hover dots -->
-  <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="showGuide" ng-show="pathDisplayState[$index]"/>
+  <circle ng-repeat="path in data.paths" id="hover-dot-{{$index}}" cx="30" cy="10" r="4" fill="{{color[$index]}}" ng-show="showGuide" ng-show="pathDisplayState[$index]"></circle>
   <text ng-repeat="label in data.x_label" x="{{data.label_x_coord[$index]}}" y="{{height+20}}" fill="red" style="font-size:10px;" transform="translate(30)" ng-show="$index % 5 == 0">{{label}}</text>
 
   <text ng-repeat="label in data.y_label" x="0" y="{{data.label_y_coord[$index]}}" fill="red" style="font-size:10px;" transform="">{{label}}</text>
