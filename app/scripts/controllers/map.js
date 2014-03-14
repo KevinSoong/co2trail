@@ -90,6 +90,8 @@ angular.module('a2App')
                     assignTextToState('#highlighted-state-name', event.currentTarget, event.currentTarget.id);
                     $scope.highlightedState = event.currentTarget;
                     $scope.svg.appendChild($scope.highlightedState);
+                    $scope.svg.appendChild(jQuery($scope.svg).children('#state-name')[0]);
+                    $scope.svg.appendChild(jQuery($scope.svg).children('#highlighted-state-name')[0]);
                     sendStateChanged();
             });
             jQuery(this).hover(
